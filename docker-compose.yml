@@ -4,6 +4,6 @@ services:
   cluster-health:
     build: .
     ports:
-      - "8010:8000"
+      - "127.0.0.1:8000:8000" # Internal-only, accessible from localhost
     env_file:
       - .env
