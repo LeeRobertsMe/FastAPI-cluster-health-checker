@@ -1,5 +1,4 @@
-# 🚀 Cluster Health Template
-
+# 🚀 Cluster Health Checker
 A clean, production-ready Docker setup for running cluster health checks with FastAPI — designed for Cloudflare Load Balancing and Prometheus integration.
 
 This template provides a smart and lightweight foundation for regional node health monitoring with:
