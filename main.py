@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Response
+from fastapi.responses import JSONResponse
 from prometheus_client import Gauge, generate_latest, CONTENT_TYPE_LATEST
+
 import httpx
 import os
 
@@ -22,12 +24,18 @@ async def health_check():
                     break
             except Exception:
                 continue
+
     cluster_status_gauge.labels(region=REGION_NAME).set(1 if healthy else 0)
-    return Response(status_code=200 if healthy else 503)
+
+    if healthy:
+        return {"status": "ok"}
+    else:
+        return JSONResponse(status_code=503, content={"status": "unhealthy"})
+
 
 @app.get("/heartbeat")
 def heartbeat():
-    return Response("OK", status_code=200)
+    return {"status": "ok"}
 
 @app.get("/metrics")
 def metrics():
